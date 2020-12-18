@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "iostream"
+#include "fstream"
+#include "string"
 
 using namespace std;
 
@@ -75,9 +77,53 @@ int main(){
 
 	kalendar(rok);
 
-	cin.get();
-	cin.get();
+	cout << endl;
+	cout << endl;
 
-	return (0);
-}
+	while(true) {
+		int zadatUdalost;
 
+		cout << "1. Ano" << endl;
+		cout << "2. Nie" << endl;
+		cout << "Chcete zadat udalost? ";
+		cin >> zadatUdalost;
+		cout << endl;
+
+		if(zadatUdalost == 2){
+			break;
+		}
+		
+		if(zadatUdalost == 1){
+			int Den; 
+			int Mesiac;
+			int Rok;
+			string udalost;
+				
+			cout << "Zadaj den: ";
+			cin >> Den;
+			cout << endl;
+
+			cout << "Zadaj mesiac: ";
+			cin >> Mesiac;
+			cout << endl;
+	
+			cout << "Zadaj rok: ";
+			cin >> Rok;
+			cout << endl;
+
+			cout << "Zadaj udalost: ";
+			cin >> udalost;
+		
+			ofstream myfile;
+			myfile.open ("Udalosti.txt");
+			myfile << Den << "." << Mesiac << ". " << Rok << endl;
+			myfile << udalost;
+			myfile.close();
+
+			cout << endl;
+			cout << endl;
+			cout << endl;
+		}
+	}
+
+	cin.get();
