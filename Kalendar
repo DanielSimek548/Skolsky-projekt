@@ -125,6 +125,16 @@ int main(){
 			cout << endl;
 		}
 	}
+	cout << "Udalosti:" << endl;
+	string line;
+	ifstream myfile ("Udalosti.txt");
+	if (myfile.is_open()){
+		while ( getline (myfile,line) )
+		{
+		cout << line << '\n';
+		}
+		myfile.close();
+  }
 
 	cin.get();
 	cin.get();
