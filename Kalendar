@@ -9,3 +9,75 @@ int cisloDna(int den, int mesiac, int rok){
 		return ( rok + rok/4 - rok/100 + rok/400 + t[mesiac-1] + den) % 7;
 }
 
+string nazovMesiaca(int cisloMesiaca){
+	string mesiac[] = { "Januar", "Februar", "Marec", "April", "Maj", "Jun", "Jul", "August", "September", "Oktober", "November", "December"};
+	return (mesiac[cisloMesiaca]);
+}
+
+int pocetDni(int cisloMesiaca, int rok){
+	switch(cisloMesiaca){
+	case 0 :
+	case 2 :
+	case 4 :
+	case 6 :
+	case 7 :
+	case 9 :
+	case 11: return(31);
+	break;
+
+	case 1 :
+		if(rok % 400 == 0 || (rok % 4 == 0 && rok %100 != 0))
+			return (29);
+		else
+			return (28);
+	break;
+
+	case 3 :
+	case 5 :
+	case 8 :
+	case 10: return(30);
+	break;
+	}
+}
+
+void kalendar(int rok){
+	printf ("         Kalendar - %d\n\n", rok);
+	int dni;
+	int vypis = cisloDna (1, 1, rok);
+	for (int i = 0; i < 12; i++){
+		dni = pocetDni (i, rok);
+		printf("\n  ------------%s-------------\n", 
+               nazovMesiaca (i).c_str());
+		printf("  Ned  Pon  Utr  Str  Stv  Pia  Sob\n");
+		int k;
+		for (k = 0; k < vypis; k++)
+			printf("     ");
+		for (int j = 1; j <= dni; j++){
+			printf("%5d", j);
+			if (++k > 6){
+				k = 0;
+				printf("\n");
+			}
+		}
+		if (k)
+			printf("\n");
+
+			vypis = k;
+	}
+	return;
+}
+
+int main(){
+	int rok;
+	cout << "Zadaj rok: ";
+	cin >> rok;
+	cout << endl;
+
+	kalendar(rok);
+
+	cin.get();
+	cin.get();
+
+	return (0);
+}
+
