@@ -5,17 +5,57 @@
 
 using namespace std;
 
+/*Funkcia, ktora vrati index dna
+	Napr.
+	Index     Den 
+	0         nedela 
+	1         pondelok 
+	2         utorok 
+	3         streda 
+	4         stvrtok 
+	5         piatok 
+	6         sobota*/
 int cisloDna(int den, int mesiac, int rok){
 		static int t[] = { 0, 3, 2, 5, 0, 3, 5, 1, 4, 6, 2, 4 };
 		rok -= mesiac < 3;
 		return ( rok + rok/4 - rok/100 + rok/400 + t[mesiac-1] + den) % 7;
 }
 
+/*Funkcia, ktora vrati nazov mesiaca s danym cislom mesiaca
+
+Cislo mesiaca   Nazov
+	0			januar 
+	1			februar 
+	2			marec 
+	3			april 
+	4			maj 
+	5			jun 
+	6			jul 
+	7			august  
+	8			september 
+	9			oktober 
+	10			november 
+	11			december*/
 string nazovMesiaca(int cisloMesiaca){
 	string mesiac[] = { "Januar", "Februar", "Marec", "April", "Maj", "Jun", "Jul", "August", "September", "Oktober", "November", "December"};
 	return (mesiac[cisloMesiaca]);
 }
 
+/*Funkcia na vratenie poctu dni v mesiaci
+
+Cislo mesiaca   Nazov       Pocet dni
+	0			januar			31
+	1			februar			28/29
+	2			marec			31
+	3			april			30 
+	4			maj				31
+	5			jun				30
+	6			jul				31
+	7			august			31
+	8			september		30
+	9			oktober			31
+	10			november		30
+	11			december		31*/
 int pocetDni(int cisloMesiaca, int rok){
 	switch(cisloMesiaca){
 	case 0 :
@@ -42,15 +82,25 @@ int pocetDni(int cisloMesiaca, int rok){
 	}
 }
 
+//Funkcia na vytlacenie kalendara daneho roku
 void kalendar(int rok){
 	printf ("         Kalendar - %d\n\n", rok);
 	int dni;
+
+	//Index dna od 0 do 6
 	int vypis = cisloDna (1, 1, rok);
+
 	for (int i = 0; i < 12; i++){
 		dni = pocetDni (i, rok);
+
+		//Vytlaci nazov aktualneho mesiaca
 		printf("\n  ------------%s-------------\n", 
                nazovMesiaca (i).c_str());
+
+		//Vytlaci stlpce
 		printf("  Ned  Pon  Utr  Str  Stv  Pia  Sob\n");
+		
+		//Vytlaci prislusne medzery
 		int k;
 		for (k = 0; k < vypis; k++)
 			printf("     ");
@@ -80,6 +130,7 @@ int main(){
 	cout << endl;
 	cout << endl;
 
+	//Funkcia na zadanie udalosti
 	while(true) {
 		int zadatUdalost;
 
@@ -114,6 +165,7 @@ int main(){
 			cout << "Zadaj udalost: ";
 			cin >> udalost;
 		
+			//Vytvorenie textoveho dokumentu a vpisanie udalosti do dokumentu
 			ofstream myfile;
 			myfile.open ("Udalosti.txt");
 			myfile << Den << "." << Mesiac << ". " << Rok << endl;
@@ -125,7 +177,8 @@ int main(){
 			cout << endl;
 		}
 	}
-	
+
+	//Vypisanie subora
 	cout << "Udalosti:" << endl;
 	string line;
 	ifstream myfile ("Udalosti.txt");
